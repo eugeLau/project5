@@ -2,21 +2,49 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import IndRecipe from './recipe.js'
 
+var config = {
+  apiKey: "AIzaSyAY54hM1somlQnpDKP8jIZN7ipfaqCqUsU",
+  authDomain: "weeklymealplan-8e228.firebaseapp.com",
+  databaseURL: "https://weeklymealplan-8e228.firebaseio.com",
+  projectId: "weeklymealplan-8e228",
+  storageBucket: "weeklymealplan-8e228.appspot.com",
+  messagingSenderId: "364510367872"
+};
+firebase.initializeApp(config);
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: []
+      selectaday: "",
+      recipes:[]
     }
-    this.showRecipe = this.showRecipe.bind(this);
+    this.showDay = this.showDay.bind(this);
+    // this.showRecipeTuesday = this.showRecipeTuesday.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
   }
-  showRecipe(e) {
+  showDay(e) {
     e.preventDefault();
     console.log('hi');
-    console.log(this);
+    console.log(e.target.value);
+    const day = e.target.value;
+    
+    // const newDay = Array.from(this.state.selectaday);
+    // newDay.push(day)
+    this.setState({
+      selectaday: day
+    });
+    const dbRef = firebase.database().ref();
+    dbRef.push(day);
   }
+
+
   addRecipe(e){
+//get information out of the form
+//make a copy of the current state by calling Array.from(this.state[selectaday])
+//call this.setState({
+//   [this.state.selectaday]: newinfo
+// })
     e.preventDefault();
     console.log('submitted');
     console.log(this);
@@ -26,15 +54,25 @@ class App extends React.Component {
       ingredients: this.recipeIngredients.value,
       directions: this.recipeDirections.value
     };
+    // console.log(recipe);
     const newRecipes = Array.from(this.state.recipes);
     newRecipes.push(recipe);
     this.setState({
       recipes: newRecipes
     });
+    // console.log(newRecipes);
+    // const newTuesdayRecipes = Array.from(this.state.tuesday);
+    // newTuesdayRecipes.push(recipe);
+    // this.setState({
+    //   tuesday: newTuesdayRecipes
+    // });
     this.recipeName.value = "";
     this.recipeServings.value = "";
     this.recipeIngredients.value ="";
     this.recipeDirections.value ="";
+
+    const dbRef = firebase.database().ref();
+    dbRef.push(newRecipes);
   }
     render() {
       return (
@@ -43,29 +81,22 @@ class App extends React.Component {
             <h1>Weekly Meal Plan</h1>
           </header>
           <section>
-            <ul>
-              <li>
-                <a href="" onClick={this.showRecipe}>
-                  <h2>Monday</h2>
-                  <p></p>
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <h2>Tuesday</h2>
-                  <p></p>
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <h2>Wednesday</h2>
-                  <p></p>
-                </a>
-              </li>
-            </ul>
+            <form action="" >
+            <p>choose a day</p>
+              <select ref={ref => this.recipeDay = ref} onChange={this.showDay} name="" id="">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </form>
           </section>
           <section>
             <form action="" onSubmit={this.addRecipe}>
+              <h3>{this.state.selectaday}</h3>
               <label htmlFor="recipeName">Name</label>
               <input type="text" name="recipeName" ref={ref => this.recipeName = ref}/>
               <label htmlFor="recipeServing">Number of Servings</label>
@@ -78,8 +109,9 @@ class App extends React.Component {
             </form>
           </section>
           <section className="recipes">
+            {this.state.selectaday}
             {this.state.recipes.map(recipe =>{
-              return(
+              return( 
                 <IndRecipe recipe={recipe} />
               )
             })}
@@ -89,67 +121,5 @@ class App extends React.Component {
     }
 }
 
-// class RecipeForm extends React.Component{
-//   render(){
-//     return(
-//       <section>
-        
-//       </section>
-//     )
-//   }
-// }
-
-// class WeeklyForm extends React.Component {
-//   render(){
-//     return(
-//       <div>
-//         <ul>
-//           <li>
-//             <a href="">
-//               <h2>Monday</h2> 
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Tuesday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Wednesday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Thursday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Friday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Saturday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="">
-//               <h2>Sunday</h2>
-//               <p></p>
-//             </a>
-//           </li>
-//         </ul>
-//       </div>
-//     )
-//   }
-// }
 
 ReactDOM.render(<App />, document.getElementById('app'));
