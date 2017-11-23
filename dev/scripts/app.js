@@ -28,14 +28,14 @@ class App extends React.Component {
     console.log('hi');
     console.log(e.target.value);
     const day = e.target.value;
-    
-    // const newDay = Array.from(this.state.selectaday);
+    // const newDay = day
     // newDay.push(day)
+    
     this.setState({
       selectaday: day
     });
-    const dbRef = firebase.database().ref();
-    dbRef.push(day);
+    // const dbRef = firebase.database().ref(this.state.selectaday);
+    // dbRef.push(day);
   }
 
 
@@ -71,8 +71,8 @@ class App extends React.Component {
     this.recipeIngredients.value ="";
     this.recipeDirections.value ="";
 
-    const dbRef = firebase.database().ref();
-    dbRef.push(newRecipes);
+    const dbRef = firebase.database().ref(this.state.selectaday);
+    dbRef.push(recipe);
   }
     render() {
       return (
