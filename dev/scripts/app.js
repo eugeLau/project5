@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IndRecipe from './recipe.js'
+import IndRecipe from './recipe';
 
 var config = {
   apiKey: "AIzaSyAY54hM1somlQnpDKP8jIZN7ipfaqCqUsU",
@@ -112,24 +112,28 @@ class App extends React.Component {
           <section className="recipes">
           <ul>
             {/* {this.state.selectaday} */}
-            
+            <li>
               <h3>Friday</h3>
                 {this.state.recipes.map((item, index) =>{
-                  return
-                    // <IndRecipe data={item} key={index}/>
-                    <li key={index}>{item}</li>
-                })}
-
-            {/* </li> */}
-            {/* <li>
-              <h3>Tuesday</h3>
-                {this.state.recipes.map(recipe => {
-                  return (
-                    // <IndRecipe recipe={recipe} />
-                    <li>{recipe}</li>
+                  return(
+                  <IndRecipe data={item} key={index}/>
+                    // <li key={index}>
+                    //   {item}
+                    // </li>
                   )
                 })}
-            </li> */}
+            </li>
+            <li>
+              <h3>Tuesday</h3>
+                {this.state.recipes.map((item, index) => {
+                  return (
+                    <IndRecipe data={item} key={index} />
+                    // <li key={index}>
+                    //   {item}
+                    // </li>
+                  )
+                })}
+            </li>
           </ul>
           </section>
         </div>
@@ -151,25 +155,34 @@ class App extends React.Component {
         // });
         const newRecipe = data[key];
 
-        const newObject = {
+        let newObject = {
           key: key,
           recipe: newRecipe
         };
-        console.log(newObject)
         console.log(newObject.recipe);
 
         const filterRecipe = newObject.recipe
 
         for (let randomKey in filterRecipe) {
           // console.log(randomKey);
-          const recipeObject = {
-            newRecipe: filterRecipe[randomKey]
-          };
+          const recipeObject = filterRecipe[randomKey];
+          // const recipeObject = Object.values(filterRecipe)
           console.log(recipeObject)
+          
+          newObject = {
+            day: key,
+            recipeObject
+          }
+          
         }
 
-          // console.log(newRecipe);
-        // }
+        console.log(newObject)
+        newState.push(newObject)
+        this.setState({
+          recipes: newState
+        })
+
+
         // {
         //   Friday: {
         //     -kdfadsjlfa: {},
@@ -182,6 +195,9 @@ class App extends React.Component {
         //   day: Friday:
         //   recipe: []
         // }
+
+
+
         // const newKey = Object.keys(data[key]);
         // console.log(data[key]);
         // console.log(data[key]);
@@ -199,24 +215,19 @@ class App extends React.Component {
         // }
         
       }
+      // console.log(this.state)
       // newState.push(response.val());
 
       // console.log(newState);
-    
-      // if (mealDay) {
-      //   newRecipes.push(recipe);
-      //   this.setState({
-      //     recipe's: newRecipes
-      //   });
-      // }
 
-      this.setState({
-        recipes: newState
-      })
+      // this.setState({
+      //   recipes: newState
+      // })
       // console.log(recipes);
     });
   }
 }
+
 
 
 ReactDOM.render(<App />, document.getElementById('app'));

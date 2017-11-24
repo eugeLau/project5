@@ -1,7 +1,14 @@
 import React from 'react';
 
-export default function IndRecipe(props) {
-    console.log('hi');
+export default class IndRecipe extends React.Component {
+    render(){
+        return(
+            <div>
+                <p>hi</p>
+                {/* <FilerterRecipe /> */}
+            </div>
+        )
+    }
     // return(
     //     // <div className="indRecipe">
     //     //     <h3>{props.data.name}</h3>
@@ -11,3 +18,4 @@ export default function IndRecipe(props) {
     //     // </div>
     // )
 }
+
