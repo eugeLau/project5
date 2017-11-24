@@ -74,6 +74,7 @@ class App extends React.Component {
     const dbRef = firebase.database().ref(this.state.selectaday);
     dbRef.push(recipe);
   }
+
     render() {
       return (
         <div>
@@ -96,7 +97,7 @@ class App extends React.Component {
           </section>
           <section>
             <form action="" onSubmit={this.addRecipe}>
-              <h3>{this.state.selectaday}</h3>
+              <h2>{this.state.selectaday}</h2>
               <label htmlFor="recipeName">Name</label>
               <input type="text" name="recipeName" ref={ref => this.recipeName = ref}/>
               <label htmlFor="recipeServing">Number of Servings</label>
@@ -109,16 +110,112 @@ class App extends React.Component {
             </form>
           </section>
           <section className="recipes">
-            {this.state.selectaday}
-            {this.state.recipes.map(recipe =>{
-              return( 
-                <IndRecipe recipe={recipe} />
-              )
-            })}
+          <ul>
+            {/* {this.state.selectaday} */}
+            
+              <h3>Friday</h3>
+                {this.state.recipes.map((item, index) =>{
+                  return
+                    // <IndRecipe data={item} key={index}/>
+                    <li key={index}>{item}</li>
+                })}
+
+            {/* </li> */}
+            {/* <li>
+              <h3>Tuesday</h3>
+                {this.state.recipes.map(recipe => {
+                  return (
+                    // <IndRecipe recipe={recipe} />
+                    <li>{recipe}</li>
+                  )
+                })}
+            </li> */}
+          </ul>
           </section>
         </div>
       )
     }
+
+  componentDidMount() {
+    const dbRef = firebase.database().ref();
+    dbRef.on('value', (response) => {
+      console.log(response.val());
+      const newState = [];
+      const data = response.val();
+
+      //pus an object with the key as the days of the week and push the data
+      for (let key in data) {
+        console.log(key)
+        // newState.push({
+        //   [key]: data[key]
+        // });
+        const newRecipe = data[key];
+
+        const newObject = {
+          key: key,
+          recipe: newRecipe
+        };
+        console.log(newObject)
+        console.log(newObject.recipe);
+
+        const filterRecipe = newObject.recipe
+
+        for (let randomKey in filterRecipe) {
+          // console.log(randomKey);
+          const recipeObject = {
+            newRecipe: filterRecipe[randomKey]
+          };
+          console.log(recipeObject)
+        }
+
+          // console.log(newRecipe);
+        // }
+        // {
+        //   Friday: {
+        //     -kdfadsjlfa: {},
+        //     -fjlksjdfl: {}
+        //   }
+        // }
+
+        
+        // {
+        //   day: Friday:
+        //   recipe: []
+        // }
+        // const newKey = Object.keys(data[key]);
+        // console.log(data[key]);
+        // console.log(data[key]);
+        // 
+
+
+        // const mealDay = key;
+        // console.log(mealDay);
+        // if (mealDay === this.state.selectaday) {
+        //   return (
+        //     this.setState({
+        //     recipes: newState
+        //     })
+        //   )
+        // }
+        
+      }
+      // newState.push(response.val());
+
+      // console.log(newState);
+    
+      // if (mealDay) {
+      //   newRecipes.push(recipe);
+      //   this.setState({
+      //     recipe's: newRecipes
+      //   });
+      // }
+
+      this.setState({
+        recipes: newState
+      })
+      // console.log(recipes);
+    });
+  }
 }
 
 
