@@ -123,7 +123,7 @@ class App extends React.Component {
                   )
                 })}
             </li>
-            <li>
+            {/* <li>
               <h3>Tuesday</h3>
                 {this.state.recipes.map((item, index) => {
                   return (
@@ -133,7 +133,7 @@ class App extends React.Component {
                     // </li>
                   )
                 })}
-            </li>
+            </li> */}
           </ul>
           </section>
         </div>
