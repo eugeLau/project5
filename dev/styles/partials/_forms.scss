@@ -1,0 +1,59 @@
+.dayForm{
+    margin: 0 auto;
+    text-align: center;
+
+    select{
+        padding: 2% 34% 2% 2%;
+        border-radius: 10px;
+    }
+}
+
+.recipeForm {
+    display:flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto 50% auto;
+    label{
+        margin: 5% 0 2.5% 0;
+    }
+
+    input {
+        border-radius: 10px;
+        padding: 1% 0;
+    }
+
+    textarea {
+        border-radius: 10px;
+        padding: 8% 0;
+    }
+
+    .submit{
+        margin: 4% auto 0 auto;
+        padding: 2% 0;
+        width: 50%;
+        background: rgba(123,178,153,.7);
+        border: none;
+        font-weight: bolder;
+    }
+}
+
+.chooseADay {
+    font-size: 1.4rem;
+    margin-top: 10%;
+}
+
+@media (max-width: 577px) {
+    .recipeForm {
+        .submit{
+            width: 70%;
+        }
+    }
+}
+
+@media (max-width: 348px) {
+
+    .chooseADay {
+        font-size: 1.2rem;
+    }
+}
+

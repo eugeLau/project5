@@ -2,35 +2,25 @@ import React from 'react';
 
 export default class IndRecipe extends React.Component {
     render(){
+        console.log(this) 
         
-        console.log(this.props.data.day);
-        console.log(this.props.data.recipeObject.directions);
-        console.log(this.props.data)
-
-        let directions = this.props.data.recipeObject.directions;
-        let ingredients = this.props.data.recipeObject.ingredients;
-        let name = this.props.data.recipeObject.name;
-        let servings = this.props.data.recipeObject.servings
-        let day = this.props.data.day
-        
-        if(day === "Wednesday") {
-           directions = this.props.data.recipeObject.direction; 
-        }
         return(
-            <div>
-                <h3>Wednesday</h3>
-                <p>{directions}</p>
-            </div>
+            <li className="recipeList">
+                <div className="listTitle">
+                    <h2>{this.props.data.day}</h2>
+                    <p className="recipeName">{this.props.data.recipeObject.name}</p>
+                </div>
+                <div className="listInfo">
+                    <p className="recipeServings">Servings: {this.props.data.recipeObject.servings}</p>
+                    <h3>Ingredients</h3>
+                    <p>{this.props.data.recipeObject.ingredients}</p>
+                    <h3>Directions</h3>
+                    <p>{this.props.data.recipeObject.directions}</p>
+                <button onClick={() => this.props.remove(this.props.data.key)} className="removeBtn">Remove Recipe</button>
+                </div>
+            </li>
         )
     }
-    // return(
-    //     // <div className="indRecipe">
-    //     //     <h3>{props.data.name}</h3>
-    //     //     <p>{props.data.servings}</p>
-    //     //     <p>{props.data.ingredients}</p>
-    //     //     <p>{props.data.directions}</p>
-    //     // </div>
-    // )
 }
 
 

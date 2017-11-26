@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import IndRecipe from './recipe';
+import SummaryRecipe from './summaryRecipe';
 
 var config = {
   apiKey: "AIzaSyAY54hM1somlQnpDKP8jIZN7ipfaqCqUsU",
@@ -22,20 +23,23 @@ class App extends React.Component {
     this.showDay = this.showDay.bind(this);
     // this.showRecipeTuesday = this.showRecipeTuesday.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
+    this.removeRecipe = this.removeRecipe.bind(this);
   }
   showDay(e) {
     e.preventDefault();
     console.log('hi');
     console.log(e.target.value);
-    const day = e.target.value;
+    var day = e.target.value;
     // const newDay = day
     // newDay.push(day)
+    const newDay = this.recipeDay.value;
+    console.log(newDay);
     
     this.setState({
       selectaday: day
     });
-    // const dbRef = firebase.database().ref(this.state.selectaday);
-    // dbRef.push(day);
+    const dbRef = firebase.database().ref(this.state.selectaday);
+    dbRef.push(day);
   }
 
 
@@ -60,6 +64,7 @@ class App extends React.Component {
     this.setState({
       recipes: newRecipes
     });
+
     // console.log(newRecipes);
     // const newTuesdayRecipes = Array.from(this.state.tuesday);
     // newTuesdayRecipes.push(recipe);
@@ -74,17 +79,27 @@ class App extends React.Component {
     const dbRef = firebase.database().ref(this.state.selectaday);
     dbRef.push(recipe);
   }
+  removeRecipe(itemToRemove) {
+    console.log("removing recipe");
+
+    // console.log(itemToRemove);
+    const dbRef = firebase.database().ref(`${this.state.selectaday}/${itemToRemove}`);
+    dbRef.remove();
+  }
 
     render() {
       return (
         <div>
-          <header>
+          <header className="wrapper">
+          <div className="title">
             <h1>Weekly Meal Plan</h1>
+          </div>
           </header>
-          <section>
-            <form action="" >
-            <p>choose a day</p>
+          <section className="wrapper">
+            <form action="" className="dayForm">
+            <p className="chooseADay">choose a day</p>
               <select ref={ref => this.recipeDay = ref} onChange={this.showDay} name="" id="">
+                <option value="">Select a Day</option>
                 <option value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -94,9 +109,8 @@ class App extends React.Component {
                 <option value="Sunday">Sunday</option>
               </select>
             </form>
-          </section>
-          <section>
-            <form action="" onSubmit={this.addRecipe}>
+          
+            <form className="recipeForm" action="" onSubmit={this.addRecipe}>
               <h2>{this.state.selectaday}</h2>
               <label htmlFor="recipeName">Name</label>
               <input type="text" name="recipeName" ref={ref => this.recipeName = ref}/>
@@ -106,35 +120,33 @@ class App extends React.Component {
               <textarea name="recipeIngredients" ref={ref => this.recipeIngredients = ref}></textarea>
               <label htmlFor="recipeDirections">Directions</label>
               <textarea name="recipeDirections" ref={ref => this.recipeDirections = ref}></textarea>
-              <input type="submit" value="Add New Recipe" />
+                <input className="submit" type="submit" value="Add New Recipe" />
             </form>
           </section>
           <section className="recipes">
-          <ul>
-            {/* {this.state.selectaday} */}
-            <li>
-              <h3>Friday</h3>
-                {this.state.recipes.map((item, index) =>{
-                  return(
-                  <IndRecipe data={item} key={index}/>
-                    // <li key={index}>
-                    //   {item}
-                    // </li>
-                  )
-                })}
-            </li>
-            {/* <li>
-              <h3>Tuesday</h3>
+            <div className="wrapper">
+              <div className="title">
+                <h1>Summary</h1>
+              </div>
+            </div>
+            <div>
+              <ul className="summarySection">
                 {this.state.recipes.map((item, index) => {
                   return (
-                    <IndRecipe data={item} key={index} />
-                    // <li key={index}>
-                    //   {item}
-                    // </li>
+                    <SummaryRecipe data={item} key={item.key} remove={this.removeRecipe}/>
                   )
                 })}
-            </li> */}
-          </ul>
+                
+              </ul>
+            </div>
+            <ul className="indRecipeSection">
+              {this.state.recipes.map((item, index) =>{
+                return(
+                <IndRecipe data={item} key={item.key} remove={this.removeRecipe}/>
+                
+                )
+              })}
+            </ul>
           </section>
         </div>
       )
@@ -143,44 +155,61 @@ class App extends React.Component {
   componentDidMount() {
     const dbRef = firebase.database().ref();
     dbRef.on('value', (response) => {
-      console.log(response.val());
+      // console.log(response.val());
       const newState = [];
       const data = response.val();
 
+
+      // const dataArray = [];
+      // for(let key in data) {
+      //   dataArray.push(data[key])
+      // }
+
+      // console.log(`key`, dataArray);
       //pus an object with the key as the days of the week and push the data
-      for (let key in data) {
-        console.log(key)
+      for (let itemkey in data) {
+        // console.log(itemkey)
+        // console.log(data[itemkey])
         // newState.push({
         //   [key]: data[key]
         // });
-        const newRecipe = data[key];
+        const newRecipe = data[itemkey];
+
 
         let newObject = {
-          key: key,
+          key: itemkey,
           recipe: newRecipe
         };
-        console.log(newObject.recipe);
+        // console.log(newObject.recipe);
 
         const filterRecipe = newObject.recipe
 
         for (let randomKey in filterRecipe) {
-          // console.log(randomKey);
+          console.log(randomKey);
           const recipeObject = filterRecipe[randomKey];
           // const recipeObject = Object.values(filterRecipe)
-          console.log(recipeObject)
+          // console.log(recipeObject)
           
           newObject = {
-            day: key,
+            key: randomKey,
+            day: itemkey,
             recipeObject
           }
+
+          // let newKey=randomKey;
+          // let dbRef = firebase.database().ref(`${itemkey}/${randomKey}`);
+          // dbRef.update(newKey);
           
         }
 
-        console.log(newObject)
+        // console.log(newObject)
         newState.push(newObject)
+        // console.log(newState)
         this.setState({
           recipes: newState
         })
+
+
 
 
         // {

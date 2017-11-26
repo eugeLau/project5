@@ -1,0 +1,39 @@
+
+h1 {
+    text-align: center;
+    font-size: 3.5rem;
+    border: 3px solid white;
+    padding: 3% 0;
+    margin: 0;
+    background: rgba(123,178,153,.7);
+    color: white;
+}
+
+.title{
+    border: 1px solid white;
+    padding: 2%;
+    margin-top: 11%;
+    background: rgba(123,178,153,.7);
+}
+
+
+@media (max-width: 468px) {
+
+    h1{
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    h1{
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 348px) {
+
+    h1{
+        font-size: 2rem;
+    }
+}

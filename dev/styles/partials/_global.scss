@@ -1,0 +1,87 @@
+h1,
+h2,
+h3 {
+    // font-family: 'Sacramento', cursive;
+    font-family: 'Parisienne', cursive;
+}
+
+p {
+    font-size: 62.5%;
+}
+
+.wrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+p,
+select,
+label,
+textarea,
+input {
+    // font-family: 'Spinnaker', sans-serif;
+    font-family: 'Merriweather', serif;
+}
+
+select,
+textarea, 
+input {
+    border: 1px solid rgba(123,178,153,.7);
+}
+
+p,
+select,
+label,
+textarea,
+input,
+h2, 
+h3 {
+    color: #333;
+}
+
+@media (max-width: 889px) {
+    .wrapper {
+        width: 65%;
+    }
+}
+
+@media (max-width: 818px) {
+    .wrapper {
+        width: 70%;
+    }
+}
+
+@media (max-width: 767px) {
+    .wrapper {
+        width: 75%;
+    }
+}
+
+@media (max-width: 700px) {
+    .wrapper {
+        width: 70%;
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        width: 75%;
+    }
+}
+@media (max-width: 517px) {
+    .wrapper {
+        width: 80%;
+    }
+}
+
+@media (max-width: 495px) {
+    .wrapper {
+        width: 85%;
+    }
+}
+
+@media (max-width: 468px) {
+    .wrapper {
+        width: 85%;
+    }
+}

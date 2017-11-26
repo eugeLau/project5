@@ -1,0 +1,67 @@
+.indRecipeSection{
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0;
+        // width: 80%;
+        margin: 0 auto;
+
+}
+
+
+.recipeList {
+    list-style: none;
+    width: 60%;
+    // border: 1px solid rgb(107, 106, 106);
+    margin: 10% auto 0 auto;
+    position: relative;
+    border-radius: 10px;
+    h3 {
+        font-size: 1.3rem;
+    }
+    p{
+        font-size: 1.1rem;
+    }
+    .recipeServings{
+        text-align: right;
+        font-size: .8rem;
+    }
+}
+
+.listTitle {
+    padding: 4%;
+    background: linear-gradient(rgba(241, 237, 185, 0.7),rgba(2255,255,255,.7)), url(../images/pineappledown.jpg);
+    background-size: cover;
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: right;
+    margin-top: 0;
+    font-size: 2.5rem;
+}
+
+.listInfo{
+    padding: 4%;
+    margin-bottom: 9%;
+    white-space: pre-wrap;
+}
+
+.removeBtn {
+    bottom: 2%;
+    right: 4%;
+    position: absolute;
+    background: rgba(123,178,153,.7);
+    border-radius: 10px;
+    padding: 1.5% 4%;
+    border: none;
+}
+
+
+@media (max-width: 767px) {
+    .recipeList {
+        width: 80%;
+    }
+}
+
