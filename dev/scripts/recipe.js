@@ -3,7 +3,6 @@ import React from 'react';
 export default class IndRecipe extends React.Component {
     render(){
         console.log(this) 
-        
         return(
             <li className="recipeList">
                 <div className="listTitle">

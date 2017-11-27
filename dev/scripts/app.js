@@ -21,34 +21,30 @@ class App extends React.Component {
       recipes:[]
     }
     this.showDay = this.showDay.bind(this);
-    // this.showRecipeTuesday = this.showRecipeTuesday.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
     this.removeRecipe = this.removeRecipe.bind(this);
   }
   showDay(e) {
+    //get value of selectaday
     e.preventDefault();
     console.log('hi');
     console.log(e.target.value);
     var day = e.target.value;
-    // const newDay = day
-    // newDay.push(day)
     const newDay = this.recipeDay.value;
     console.log(newDay);
     
     this.setState({
       selectaday: day
     });
-    const dbRef = firebase.database().ref(this.state.selectaday);
-    dbRef.push(day);
+    // const dbRef = firebase.database().ref(this.state.selectaday);
+    // dbRef.push(day);
   }
 
 
   addRecipe(e){
 //get information out of the form
-//make a copy of the current state by calling Array.from(this.state[selectaday])
-//call this.setState({
-//   [this.state.selectaday]: newinfo
-// })
+//Create recipe object
+// push the recipes into state
     e.preventDefault();
     console.log('submitted');
     console.log(this);
@@ -66,25 +62,37 @@ class App extends React.Component {
     });
 
     // console.log(newRecipes);
-    // const newTuesdayRecipes = Array.from(this.state.tuesday);
-    // newTuesdayRecipes.push(recipe);
-    // this.setState({
-    //   tuesday: newTuesdayRecipes
-    // });
+    // clear the value of the labels
     this.recipeName.value = "";
     this.recipeServings.value = "";
     this.recipeIngredients.value ="";
     this.recipeDirections.value ="";
 
+    //push values onto Firebase
     const dbRef = firebase.database().ref(this.state.selectaday);
     dbRef.push(recipe);
   }
   removeRecipe(itemToRemove) {
     console.log("removing recipe");
 
+    //have selectaday match with firebase key and delet from firebase
+
+      const dbRefM = firebase.database().ref(`Monday/${itemToRemove}`);
+      const dbRefTu = firebase.database().ref(`Tuesday/${itemToRemove}`);
+      const dbRefW = firebase.database().ref(`Wednesday/${itemToRemove}`);
+      const dbRefTh = firebase.database().ref(`Thursday/${itemToRemove}`);
+      const dbRefF = firebase.database().ref(`Friday/${itemToRemove}`);
+      const dbRefSa = firebase.database().ref(`Saturday/${itemToRemove}`);
+      const dbRefSu = firebase.database().ref(`Sunday/${itemToRemove}`);
+      dbRefM.remove();
+      dbRefTu.remove();
+      dbRefW.remove();
+      dbRefTh.remove();
+      dbRefF.remove();
+      dbRefSa.remove();
+      dbRefSu.remove();
+
     // console.log(itemToRemove);
-    const dbRef = firebase.database().ref(`${this.state.selectaday}/${itemToRemove}`);
-    dbRef.remove();
   }
 
     render() {
@@ -97,7 +105,7 @@ class App extends React.Component {
           </header>
           <section className="wrapper">
             <form action="" className="dayForm">
-            <p className="chooseADay">choose a day</p>
+            <p className="chooseADay">Create you Weekly Meal Plan</p>
               <select ref={ref => this.recipeDay = ref} onChange={this.showDay} name="" id="">
                 <option value="">Select a Day</option>
                 <option value="Monday">Monday</option>
@@ -148,6 +156,9 @@ class App extends React.Component {
               })}
             </ul>
           </section>
+          <footer>
+            <a className="credits" href="https://www.freepik.com/free-vector/sketchy-food-background_772953.htm">Background Designed by Freepik</a>
+          </footer>
         </div>
       )
     }
@@ -159,22 +170,13 @@ class App extends React.Component {
       const newState = [];
       const data = response.val();
 
-
-      // const dataArray = [];
-      // for(let key in data) {
-      //   dataArray.push(data[key])
-      // }
-
       // console.log(`key`, dataArray);
-      //pus an object with the key as the days of the week and push the data
+      //push an object with the key as the days of the week and push the data
       for (let itemkey in data) {
         // console.log(itemkey)
         // console.log(data[itemkey])
-        // newState.push({
-        //   [key]: data[key]
-        // });
+        
         const newRecipe = data[itemkey];
-
 
         let newObject = {
           key: itemkey,
@@ -187,7 +189,6 @@ class App extends React.Component {
         for (let randomKey in filterRecipe) {
           console.log(randomKey);
           const recipeObject = filterRecipe[randomKey];
-          // const recipeObject = Object.values(filterRecipe)
           // console.log(recipeObject)
           
           newObject = {
@@ -195,11 +196,6 @@ class App extends React.Component {
             day: itemkey,
             recipeObject
           }
-
-          // let newKey=randomKey;
-          // let dbRef = firebase.database().ref(`${itemkey}/${randomKey}`);
-          // dbRef.update(newKey);
-          
         }
 
         // console.log(newObject)
@@ -208,51 +204,7 @@ class App extends React.Component {
         this.setState({
           recipes: newState
         })
-
-
-
-
-        // {
-        //   Friday: {
-        //     -kdfadsjlfa: {},
-        //     -fjlksjdfl: {}
-        //   }
-        // }
-
-        
-        // {
-        //   day: Friday:
-        //   recipe: []
-        // }
-
-
-
-        // const newKey = Object.keys(data[key]);
-        // console.log(data[key]);
-        // console.log(data[key]);
-        // 
-
-
-        // const mealDay = key;
-        // console.log(mealDay);
-        // if (mealDay === this.state.selectaday) {
-        //   return (
-        //     this.setState({
-        //     recipes: newState
-        //     })
-        //   )
-        // }
-        
       }
-      // console.log(this.state)
-      // newState.push(response.val());
-
-      // console.log(newState);
-
-      // this.setState({
-      //   recipes: newState
-      // })
-      // console.log(recipes);
     });
   }
 }
