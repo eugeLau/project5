@@ -14,17 +14,19 @@
     width: 90%;
     margin: 0 auto 50% auto;
     label{
-        margin: 5% 0 2.5% 0;
+        margin: 5% 0 1.5% 0;
+        font-weight: bolder;
     }
 
     input {
         border-radius: 10px;
-        padding: 1% 0;
+        padding: 1.5% 0;
     }
 
     textarea {
         border-radius: 10px;
-        padding: 8% 0;
+        padding: 1% 0;
+        height: 150px;
     }
 
     .submit{
@@ -32,14 +34,24 @@
         padding: 2% 0;
         width: 50%;
         background: rgba(123,178,153,.7);
-        border: none;
+        border: 2px solid white;
         font-weight: bolder;
+    }
+
+    .submit:hover {
+        background: white;
+        border: 2px solid rgba(123,178,153,.7);
+    }
+
+    .submit:active{
+        color: white;
     }
 }
 
 .chooseADay {
     font-size: 1.4rem;
     margin-top: 10%;
+    font-weight: bolder;
 }
 
 @media (max-width: 577px) {

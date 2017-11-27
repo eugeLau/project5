@@ -105,7 +105,7 @@ class App extends React.Component {
           </header>
           <section className="wrapper">
             <form action="" className="dayForm">
-            <p className="chooseADay">Create you Weekly Meal Plan</p>
+            <p className="chooseADay">Create your Weekly Meal Plan</p>
               <select ref={ref => this.recipeDay = ref} onChange={this.showDay} name="" id="">
                 <option value="">Select a Day</option>
                 <option value="Monday">Monday</option>
@@ -120,9 +120,9 @@ class App extends React.Component {
           
             <form className="recipeForm" action="" onSubmit={this.addRecipe}>
               <h2>{this.state.selectaday}</h2>
-              <label htmlFor="recipeName">Name</label>
+              <label htmlFor="recipeName">Title</label>
               <input type="text" name="recipeName" ref={ref => this.recipeName = ref}/>
-              <label htmlFor="recipeServing">Number of Servings</label>
+              <label htmlFor="recipeServing">Servings</label>
               <input type="recipeServing" ref={ref => this.recipeServings = ref}/>
               <label htmlFor="recipeIngredients">Ingredients</label>
               <textarea name="recipeIngredients" ref={ref => this.recipeIngredients = ref}></textarea>

@@ -6,7 +6,6 @@
         padding: 0;
         // width: 80%;
         margin: 0 auto;
-
 }
 
 
@@ -56,7 +55,16 @@ h2 {
     background: rgba(123,178,153,.7);
     border-radius: 10px;
     padding: 1.5% 4%;
-    border: none;
+    border: 2px solid white;
+}
+
+.removeBtn:hover {
+    background: white;
+    border: 2px solid rgba(123,178,153,.7);
+}
+
+.removeBtn:active {
+    color: white;
 }
 
 .credits {
