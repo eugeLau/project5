@@ -1,10 +1,13 @@
-.dayForm{
-    margin: 0 auto;
-    text-align: center;
+.daysOfTheWeekForm {
+    position: relative;
+}
 
+.dayForm{
+    position: absolute;
+    top: -80px;
+    left: 39px;
     select{
         padding: 2% 34% 2% 2%;
-        border-radius: 10px;
     }
 }
 
@@ -19,12 +22,10 @@
     }
 
     input {
-        border-radius: 10px;
         padding: 1.5% 0;
     }
 
     textarea {
-        border-radius: 10px;
         padding: 1% 0;
         height: 150px;
     }
@@ -46,6 +47,14 @@
     .submit:active{
         color: white;
     }
+}
+
+.selectedDayGrid {
+    background:rgba(123, 178, 153, 0.7);
+    width: 30%;
+    margin-left: 70%;
+    padding-right: 5%;
+    padding-left: 1%;
 }
 
 .chooseADay {

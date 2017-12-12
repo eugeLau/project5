@@ -103,7 +103,7 @@ class App extends React.Component {
             <h1>Weekly Meal Plan</h1>
           </div>
           </header>
-          <section className="wrapper">
+          <section className="wrapper daysOfTheWeekForm">
             <form action="" className="dayForm">
             <p className="chooseADay">Create your Weekly Meal Plan</p>
               <select ref={ref => this.recipeDay = ref} onChange={this.showDay} name="" id="">
@@ -119,7 +119,7 @@ class App extends React.Component {
             </form>
           
             <form className="recipeForm" action="" onSubmit={this.addRecipe}>
-              <h2>{this.state.selectaday}</h2>
+              <h2 className="selectedDayGrid">{this.state.selectaday}</h2>
               <label htmlFor="recipeName">Title</label>
               <input type="text" name="recipeName" ref={ref => this.recipeName = ref}/>
               <label htmlFor="recipeServing">Servings</label>
@@ -133,7 +133,7 @@ class App extends React.Component {
           </section>
           <section className="recipes">
             <div className="wrapper">
-              <div className="title">
+              <div className="secondTitle">
                 <h1>Summary</h1>
               </div>
             </div>
@@ -147,11 +147,15 @@ class App extends React.Component {
                 
               </ul>
             </div>
+            <div className="wrapper">
+              <div className="secondTitle">
+                <h1>Full Recipe</h1>
+              </div>
+            </div>
             <ul className="indRecipeSection">
               {this.state.recipes.map((item, index) =>{
                 return(
                 <IndRecipe data={item} key={item.key} remove={this.removeRecipe}/>
-                
                 )
               })}
             </ul>
