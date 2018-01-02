@@ -63,6 +63,24 @@
     font-weight: bolder;
 }
 
+@media (max-width: 848px) {
+    .selectedDayGrid {
+        width: 34%;
+        margin-left: 67%;
+    }
+}
+
+@media (max-width: 688px) {
+    .selectedDayGrid {
+        margin-left: 15px;
+        width: 87%;
+        text-align: center;
+        padding-right: 0%;
+        padding-left: 0%;
+        margin-top: 31%;
+    }
+}
+
 @media (max-width: 577px) {
     .recipeForm {
         .submit{
@@ -70,11 +88,33 @@
         }
     }
 }
+@media (max-width: 467px) {
+    .dayForm {
+        left: 33px;
+    }
+}
+
+@media (max-width: 398px) {
+    .chooseADay {
+    margin-top: 13%;
+    }
+}
 
 @media (max-width: 348px) {
 
     .chooseADay {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-top: 21px;
+    }
+
+    .recipeForm {
+        margin-top: 85px;
+    }
+}
+
+@media (max-width: 320px) {
+    .dayForm {
+        left: 27px;
     }
 }
 
